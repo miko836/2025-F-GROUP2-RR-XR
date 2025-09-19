@@ -277,3 +277,11 @@ class TestCounterEndpoints:
         assert response.status_code == HTTPStatus.BAD_REQUEST
 
         # TODO: Add an assertion to verify the error message specifically says 'Invalid counter name'S
+
+    def test_bottom_n_counters_no_counters(self, client):
+        """It should return 404 if there are no counters when requesting bottom N"""
+        # Make sure counters are reset and empty
+        client.post('/counters/reset')
+        response = client.get('/counters/bottom/1')
+        assert response.status_code == HTTPStatus.NOT_FOUND
+        assert "No counters available" in response.get_json()["error"]
