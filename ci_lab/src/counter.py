@@ -12,6 +12,8 @@ COUNTERS = {}
 
 def is_valid_counter_name(name):
     """Validate counter name to ensure it contains only alphanumeric characters"""
+    # BAD STYLE: extra unused variable to trigger Flake8 error
+    foo_unused = 42
     return re.match(r"^[a-zA-Z0-9_]+$", name) is not None
 
 @app.route('/counters/<name>', methods=['POST'])
